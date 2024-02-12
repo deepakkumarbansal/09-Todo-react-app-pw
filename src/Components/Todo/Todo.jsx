@@ -11,6 +11,7 @@ const Todo = ({todoData, isFinished, changeFinished, onEdit, onDelete}) => {
   return (
     <div>
       <input type="checkbox" checked={finished} onChange={(e)=>{
+        console.log(finished, e.target.checked);
         setFinished(e.target.checked);
         changeFinished(e.target.checked);
       }}/>

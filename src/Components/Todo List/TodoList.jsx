@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Todo from '../Todo/Todo'
-const TodoList = ({list, setList}) => {
+import TodoContext from '../../context/TodoContext';
+const TodoList = () => {
+    const [list,setList] = useContext(TodoContext);
     const deleteTodo = (todo)=>{
         const updatedList = list.filter((t)=>t.id != todo.id);
         setList(updatedList)

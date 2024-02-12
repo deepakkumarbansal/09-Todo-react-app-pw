@@ -1,19 +1,16 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import './App.css'
 import TodoList from './Components/Todo List/TodoList'
 import AddTodo from './Components/Add Todo/AddTodo'
+import TodoContextProvider from './context/TodoContextProvider'
+import TodoContext from './context/TodoContext'
 
 function App() {
-  const [list, setList] = useState([
-    {id:1, todoData: 'todo1', finished: true},
-    {id:2, todoData: 'todo2', finished: false}
-  ])
-
   return (
-    <>
-     <AddTodo updateList={(data)=>{setList([...list, {id: list.length+1, todoData: data, finished: false}])}}/>
-     <TodoList list = {list} setList={setList}/>
-    </>
+    <TodoContextProvider>
+      <AddTodo/>
+      <TodoList/>
+    </TodoContextProvider>
   )
 }
 
