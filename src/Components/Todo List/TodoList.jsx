@@ -1,31 +1,20 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Todo from '../Todo/Todo'
-import TodoContext from '../../context/TodoContext';
+import { TodoDispatchContext } from '../../context/TodoDispatchContext';
 const TodoList = () => {
-    const [list,setList] = useContext(TodoContext);
+    const {list,dispatch} = useContext(TodoDispatchContext);
     const deleteTodo = (todo)=>{
-        const updatedList = list.filter((t)=>t.id != todo.id);
-        setList(updatedList)
+        dispatch({type:'deleteTodo', payload:{todo}})
     }
     const editTodo = (text,todo)=>{
-        const updatedList = list.map((t)=>{
-            if(t.id == todo.id){
-                t.todoData = text;
-            }
-            return t;
-        })
-        setList(updatedList);
+        dispatch({type:'editTodo', payload:{todo, todoText:text}})
     }
     const setFinish = (isFinished,todo)=>{
-        // todo.finished = isFinished // this will work but its React's principles of immutability. Also doesnot rerender component
-        const updatedList = list.map((t)=>{
-            if(t.id == todo.id){
-                t.finished = isFinished;
-            }
-            return t;
-        })
-        setList(updatedList);
+        dispatch({type:'finishTodo', payload:{isFinished,todo}})
     }
+    useEffect(()=>{
+        console.log(list);
+    },[list])
   return (
     <div>
         {list.length > 0 &&

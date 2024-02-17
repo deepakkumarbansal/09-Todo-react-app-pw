@@ -1,14 +1,17 @@
-import React, { useContext, useState } from 'react'
-import TodoContext from '../../context/TodoContext';
+import React, { useContext, useEffect, useReducer, useState } from 'react'
+import { TodoDispatchContext } from '../../context/TodoDispatchContext';
 
 const AddTodo = () => {
-    const [list,setList] = useContext(TodoContext);
-    const [inputText, setInputText] = useState('')
+    const {list, dispatch} = useContext(TodoDispatchContext)
+    const [inputText, setInputText] = useState('');
+    useEffect(()=>{
+      console.log(list);
+    },[list])
   return (
     <>
      <input type="text" placeholder='Add todo here...' value={inputText} onChange={(e)=>{setInputText(e.target.value)}}/> 
      <button onClick={()=>{
-        setList([...list, {id: list.length+1, todoData: inputText, finished: false}])
+        dispatch({type : 'addTodo', payload:{todoText: inputText}})
         setInputText('')
      }}>Add Todo</button>
     </>
