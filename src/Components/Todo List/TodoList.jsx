@@ -1,16 +1,19 @@
 import React, { useContext, useEffect } from 'react'
 import Todo from '../Todo/Todo'
-import { TodoDispatchContext } from '../../context/TodoDispatchContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { todoDelete, todoEdit, todoFinish } from '../../actions/todoActions';
 const TodoList = () => {
-    const {list,dispatch} = useContext(TodoDispatchContext);
+    const dispatch = useDispatch();
+    const list = useSelector((state)=>state.todo);
+
     const deleteTodo = (todo)=>{
-        dispatch({type:'deleteTodo', payload:{todo}})
+        dispatch(todoDelete(todo))
     }
     const editTodo = (text,todo)=>{
-        dispatch({type:'editTodo', payload:{todo, todoText:text}})
+        dispatch(todoEdit(text, todo))
     }
     const setFinish = (isFinished,todo)=>{
-        dispatch({type:'finishTodo', payload:{isFinished,todo}})
+        dispatch(todoFinish(isFinished, todo))
     }
     useEffect(()=>{
         console.log(list);

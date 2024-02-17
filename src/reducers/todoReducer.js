@@ -1,4 +1,8 @@
-function todoReducer(state, action){
+const initialState = [
+    {id:1, todoData: "todoText", finished: false}
+]
+
+function todoReducer(state=initialState, action){
     if(action.type == 'addTodo'){
         const todoText = action.payload.todoText;
         return [
@@ -32,6 +36,7 @@ function todoReducer(state, action){
         })
         return updatedList
     }
+    return state //most important
 }
 
 export default todoReducer
